@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KOTARO NGL TOOL</title>
+
+    <!-- Link to Font Awesome for icons -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
+
+    <style>
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        body {
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+            background: linear-gradient(to bottom, #1e1e1e, #121212);
+
+            color: #ffffff;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            height: 100vh;
+
+            margin: 0;
+
+        }
+
+
+
+        header {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+
+            font-size: 2rem;
+
+            color: #1ebce8;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.5px;
+
+        }
+
+
+
+        .container {
+
+            background-color: rgba(0, 0, 0, 0.7);
+
+            border-radius: 12px;
+
+            width: 100%;
+
+            max-width: 480px;
+
+            padding: 25px;
+
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+
+            transition: all 0.3s ease-in-out;
+
+        }
+
+
+
+        .container:hover {
+
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+
+        }
+
+
+
+        .choice-container {
+
+            margin-bottom: 25px;
+
+        }
+
+
+
+        .choice-container select {
+
+            width: 100%;
+
+            padding: 12px;
+
+            font-size: 16px;
+
+            background-color: #333;
+
+            color: #fff;
+
+            border: 1px solid #444;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        .choice-container select:hover,
+
+        .choice-container select:focus {
+
+            border-color: #1ebce8;
+
+        }
+
+
+
+        .input-group {
+
+            margin-bottom: 25px;
+
+        }
+
+
+
+        input[type="text"] {
+
+            width: 100%;
+
+            padding: 14px;
+
+            font-size: 16px;
+
+            background-color: #333;
+
+            color: #fff;
+
+            border: 1px solid #444;
+
+            border-radius: 8px;
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        input[type="text"]:focus {
+
+            border-color: #1ebce8;
+
+            outline: none;
+
+        }
+
+
+
+        button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            font-size: 16px;
+
+            background-color: #1ebce8;
+
+            color: #fff;
+
+            border: 1px solid #1ebce8;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            margin-top: 15px;
+
+            transition: all 0.3s ease;
+
+        }
+
+
+
+        button:hover,
+
+        button.clicked {
+
+            background-color: #0ab253;
+
+            border-color: #0ab253;
+
+        }
+
+
+
+        .message-input {
+
+            display: none;
+
+            margin-bottom: 20px;
+
+        }
+
+
+
+        footer {
+
+            margin-top: 40px;
+
+            text-align: center;
+
+            font-size: 14px;
+
+            color: #bbb;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 20px;
+
+        }
+
+
+
+        footer a {
+
+            color: #1ebce8;
+
+            text-decoration: none;
+
+            font-size: 16px;
+
+            display: flex;
+
+            align-items: center;
+
+            transition: color 0.3s ease;
+
+        }
+
+
+
+        footer a:hover {
+
+            color: #0ab253;
+
+        }
+
+
+
+        footer i {
+
+            margin-right: 8px;
+
+        }
+
+
+
+        .clicked {
+
+            background-color: #0ab253;
+
+            border-color: #0ab253;
+
+        }
+
+
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <h1>KOTARO NGL TOOL</h1>
+
+    </header>
+
+    <div class="container">
+
+        <!-- Initial option is "None" -->
+
+        <div class="choice-container">
+
+            <select id="toolChoice" onchange="toggleMessageInput()">
+
+                <option value="none">Select Action</option>
+
+                <option value="spammer">Spammer</option>
+
+                <option value="deleter">Deleter</option>
+
+            </select>
+
+        </div>
+
+
+
+        <!-- Username input -->
+
+        <div class="input-group">
+
+            <input type="text" id="username" placeholder="Enter username" disabled>
+
+        </div>
+
+
+
+        <!-- Spam message input (visible only when Spammer is selected) -->
+
+        <div class="message-input" id="messageInput">
+
+            <input type="text" id="spamMessage" placeholder="Enter spam message" disabled>
+
+        </div>
+
+
+
+        <!-- Buttons for START and STOP actions -->
+
+        <button id="startButton" onclick="startFunction()" disabled>START</button>
+
+        <button id="stopButton" onclick="stopFunction()" disabled>STOP</button>
+
+    </div>
+
+
+
+    <footer>
+
+        <a href="https://www.facebook.com/profile.php?id=61552485915489" target="_blank"><i class="fab fa-facebook"></i>Facebook</a>
+
+        <a href="https://discord.com/invite/nudos" target="_blank"><i class="fab fa-discord"></i>Discord</a>
+
+        <a href="https://github.com/kotaro1337" target="_blank"><i class="fab fa-github"></i>GitHub</a>
+
+    </footer>
+
+
+
+    <script>
+
+        var xhrArray = [];
+
+        var isRunning = false;
+
+        var intervalId;
+
+
+
+        function toggleMessageInput() {
+
+            var toolChoice = document.getElementById("toolChoice").value;
+
+            var usernameInput = document.getElementById("username");
+
+            var messageInput = document.getElementById("messageInput");
+
+            var startButton = document.getElementById("startButton");
+
+            var stopButton = document.getElementById("stopButton");
+
+
+
+            // Enable the username input and start/stop buttons
+
+            usernameInput.disabled = false;
+
+            startButton.disabled = false;
+
+            stopButton.disabled = false;
+
+
+
+            // Display appropriate inputs based on tool choice
+
+            if (toolChoice === "spammer") {
+
+                messageInput.style.display = "block";
+
+                document.getElementById("spamMessage").disabled = false;
+
+            } else if (toolChoice === "deleter") {
+
+                messageInput.style.display = "none";
+
+                document.getElementById("spamMessage").disabled = true;
+
+            } else {
+
+                // None selected
+
+                usernameInput.disabled = true;
+
+                startButton.disabled = true;
+
+                stopButton.disabled = true;
+
+            }
+
+        }
+
+
+
+        function startFunction() {
+
+            if (isRunning) {
+
+                return;
+
+            }
+
+
+
+            var username = document.getElementById("username").value;
+
+            var message = document.getElementById("toolChoice").value === "spammer" ? document.getElementById("spamMessage").value : "function(deleter):____reset(fuck_you_)";
+
+            var randomDeviceId = generateRandomDeviceId();
+
+
+
+            document.getElementById("startButton").classList.add("clicked");
+
+            document.getElementById("stopButton").classList.remove("clicked");
+
+
+
+            isRunning = true;
+
+
+
+            intervalId = setInterval(function() {
+
+                var xhr = new XMLHttpRequest();
+
+                var url = "https://ngl.link/api/submit";
+
+                xhr.open("POST", url, true);
+
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                xhr.onreadystatechange = function () {
+
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+
+                        if (xhr.status === 200) {
+
+                            console.log("Request successful");
+
+                        } else {
+
+                            console.error("Request failed");
+
+                        }
+
+                    }
+
+                };
+
+
+
+                var data = "username=" + encodeURIComponent(username) + "&question=" + encodeURIComponent(message) + "&deviceId=" + encodeURIComponent(randomDeviceId) + "&gameSlug=" + generateRandomGameSlug() + "";
+
+                
+
+                xhr.send(data);
+
+
+
+                xhrArray.push(xhr);
+
+
+
+            }, 1000);
+
+        }
+
+
+
+        function stopFunction() {
+
+            document.getElementById("stopButton").classList.add("clicked");
+
+            document.getElementById("startButton").classList.remove("clicked");
+
+            
+
+            clearInterval(intervalId);
+
+
+
+            for (var i = 0; i < xhrArray.length; i++) {
+
+                if (xhrArray[i] instanceof XMLHttpRequest) {
+
+                    xhrArray[i].abort();
+
+                }
+
+            }
+
+            
+
+            xhrArray = [];
+
+            isRunning = false;
+
+        }
+
+
+
+        function generateRandomDeviceId() {
+
+            return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+        }
+
+
+
+        function generateRandomGameSlug() {
+
+            var games = ['', 'confessions', '3words', 'wfriendship', 'rizzme', 'tbh', 'shipme', 'yourcrush', 'cancelled', 'dealbreaker'];
+
+            return games[Math.floor(Math.random() * games.length)];
+
+        }
+
+    </script>
+
+</body>
+
+</html>
+
+  
