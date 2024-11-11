@@ -11,6 +11,9 @@
             text-align: center;
             margin-top: 50px;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -19,6 +22,9 @@
 
     <h2>Can you solve this advanced security challenge?</h2>
     <p>Your goal: Capture the Flag!</p>
+
+    <p id="auth_hint" class="hidden">Hint: Look at how the authentication and password hashing work!</p>
+    <p id="waf_hint" class="hidden">Hint: The web application firewall (WAF) is blocking some requests! Try to bypass it.</p>
 
     <footer>
         <p>Challenge designed and implemented by Kotaro</p>
